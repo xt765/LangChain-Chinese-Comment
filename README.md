@@ -4,8 +4,8 @@
   <a href="https://github.com/xt765/LangChain-Chinese-Comment">
     <img src="https://img.shields.io/badge/GitHub-LangChain--Chinese--Comment-blue?logo=github" alt="GitHub">
   </a>
-  <a href="https://gitee.com/xt765/mcp-document-converter">
-    <img src="https://img.shields.io/badge/Gitee-MCP--Document--Converter-red?logo=gitee" alt="Gitee">
+  <a href="https://gitee.com/xt765/LangChain-Chinese-Comment">
+    <img src="https://img.shields.io/badge/Gitee-LangChain--Chinese--Comment-red?logo=gitee" alt="Gitee">
   </a>
   <a href="https://blog.csdn.net/Yunyi_Chi">
     <img src="https://img.shields.io/badge/CSDN-玄同765-blue?logo=c&logoColor=white" alt="CSDN">
@@ -262,7 +262,7 @@ result = agent.invoke({"input": "今天天气如何？"})
 
 ### 本项目链接
 - [GitHub 仓库](https://github.com/xt765/LangChain-Chinese-Comment) - 本项目源码托管地址
-- [Gitee 镜像](https://gitee.com/xt765/mcp-document-converter) - 国内访问更快的镜像
+- [Gitee 镜像](https://gitee.com/xt765/LangChain-Chinese-Comment) - 国内访问更快的镜像
 - [CSDN 博客](https://blog.csdn.net/Yunyi_Chi) - 作者技术博客，分享更多 AI 开发经验
 
 ## 许可证
