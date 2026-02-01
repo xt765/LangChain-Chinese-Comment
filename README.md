@@ -1,5 +1,20 @@
 # LangChain 中文注释项目
 
+<p align="center">
+  <a href="https://github.com/xt765/LangChain-Chinese-Comment">
+    <img src="https://img.shields.io/badge/GitHub-LangChain--Chinese--Comment-blue?logo=github" alt="GitHub">
+  </a>
+  <a href="https://gitee.com/xt765/mcp-document-converter">
+    <img src="https://img.shields.io/badge/Gitee-MCP--Document--Converter-red?logo=gitee" alt="Gitee">
+  </a>
+  <a href="https://blog.csdn.net/Yunyi_Chi">
+    <img src="https://img.shields.io/badge/CSDN-玄同765-blue?logo=c&logoColor=white" alt="CSDN">
+  </a>
+  <img src="https://img.shields.io/badge/Python-3.10+-green?logo=python" alt="Python">
+  <img src="https://img.shields.io/badge/LangChain-1.2.7-orange" alt="LangChain">
+  <img src="https://img.shields.io/badge/License-MIT-yellow" alt="License">
+</p>
+
 ## 项目简介
 
 本项目是一个专为中文开发者打造的 LangChain 框架源码注释与文档库。LangChain 作为业界领先的大语言模型（LLM）应用开发框架，其架构设计精妙、功能丰富，但源码复杂度较高。本项目通过系统性地整理核心模块的中文注释，帮助开发者深入理解 LangChain 的实现原理、设计思想及最佳实践。
@@ -240,9 +255,15 @@ result = agent.invoke({"input": "今天天气如何？"})
 
 ## 相关资源
 
+### 官方资源
 - [LangChain 官方文档](https://python.langchain.com/)
 - [LangChain GitHub](https://github.com/langchain-ai/langchain)
 - [LangChain Core GitHub](https://github.com/langchain-ai/langchain-core)
+
+### 本项目链接
+- [GitHub 仓库](https://github.com/xt765/LangChain-Chinese-Comment) - 本项目源码托管地址
+- [Gitee 镜像](https://gitee.com/xt765/mcp-document-converter) - 国内访问更快的镜像
+- [CSDN 博客](https://blog.csdn.net/Yunyi_Chi) - 作者技术博客，分享更多 AI 开发经验
 
 ## 许可证
 
