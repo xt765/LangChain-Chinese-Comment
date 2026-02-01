@@ -2,13 +2,13 @@
 
 <p align="center">
   <a href="https://github.com/xt765/LangChain-Chinese-Comment">
-    <img src="https://img.shields.io/badge/GitHub-LangChain--Chinese--Comment-blue?logo=github" alt="GitHub">
+    <img src="https://img.shields.io/badge/GitHub-LangChain--Chinese--Comment-black?logo=github" alt="GitHub">
   </a>
   <a href="https://gitee.com/xt765/LangChain-Chinese-Comment">
     <img src="https://img.shields.io/badge/Gitee-LangChain--Chinese--Comment-red?logo=gitee" alt="Gitee">
   </a>
   <a href="https://blog.csdn.net/Yunyi_Chi">
-    <img src="https://img.shields.io/badge/CSDN-玄同765-blue?logo=c&logoColor=white" alt="CSDN">
+    <img src="https://img.shields.io/badge/CSDN-玄同765-orange?logo=c&logoColor=white" alt="CSDN">
   </a>
   <img src="https://img.shields.io/badge/Python-3.10+-green?logo=python" alt="Python">
   <img src="https://img.shields.io/badge/LangChain-1.2.7-orange" alt="LangChain">
