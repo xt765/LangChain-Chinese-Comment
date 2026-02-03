@@ -1,4 +1,4 @@
-# LangChain 中文注释项目
+<h1 align="center">LangChain 中文注释项目</h1>
 
 <p align="center">
   <a href="https://github.com/xt765/LangChain-Chinese-Comment">
