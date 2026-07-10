@@ -1,32 +1,20 @@
 import unittest
-import os
 import time
 import asyncio
-from dotenv import load_dotenv
 
-# 加载环境变量
-load_dotenv()
-
-# 导入所需的LangChain组件
-from langchain_openai import ChatOpenAI
 from langchain_core.language_models import BaseLanguageModel
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import JsonOutputParser, StrOutputParser, CommaSeparatedListOutputParser
 from langchain_core.runnables import RunnablePassthrough
-from pydantic import BaseModel, Field
+from mock_llm import MockChatOpenAI
 
 class TestLangChainV1Model(unittest.TestCase):
     """测试LangChain v1.0+ Model模块"""
     
     def setUp(self):
         """设置测试环境"""
-        # 初始化模型
-        self.llm = ChatOpenAI(
-            model="gpt-4o-mini",
-            api_key=os.getenv("OPENAI_API_KEY"),
-            base_url=os.getenv("OPENAI_BASE_URL")
-        )
+        self.llm = MockChatOpenAI()
     
     def test_model_initialization(self):
         """测试模型初始化"""
@@ -174,16 +162,8 @@ class TestLangChainV1Model(unittest.TestCase):
         """测试模型评估"""
         # 初始化不同模型
         models = [
-            ("gpt-4o-mini", ChatOpenAI(
-                model="gpt-4o-mini",
-                api_key=os.getenv("OPENAI_API_KEY"),
-                base_url=os.getenv("OPENAI_BASE_URL")
-            )),
-            ("gpt-3.5-turbo", ChatOpenAI(
-                model="gpt-3.5-turbo",
-                api_key=os.getenv("OPENAI_API_KEY"),
-                base_url=os.getenv("OPENAI_BASE_URL")
-            ))
+            ("gpt-4o-mini", MockChatOpenAI(model="gpt-4o-mini")),
+            ("gpt-3.5-turbo", MockChatOpenAI(model="gpt-3.5-turbo")),
         ]
         
         # 创建提示词

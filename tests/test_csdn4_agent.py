@@ -1,29 +1,48 @@
 import unittest
-import os
-from dotenv import load_dotenv
+import ast
+import operator
 from functools import lru_cache
-
-# 加载环境变量
-load_dotenv()
 
 # 导入所需的LangChain组件
 from langchain_core.tools import tool, StructuredTool
-from langchain_openai import ChatOpenAI
 from langchain.agents import create_agent
 from pydantic import BaseModel, Field, field_validator
 from langgraph.checkpoint.memory import MemorySaver
+from mock_llm import MockChatOpenAI
+
+_ALLOWED_OPERATORS = {
+    ast.Add: operator.add,
+    ast.Sub: operator.sub,
+    ast.Mult: operator.mul,
+    ast.Div: operator.truediv,
+    ast.USub: operator.neg,
+    ast.UAdd: operator.pos,
+}
+
+
+def safe_eval_arithmetic(expression: str) -> float:
+    """Evaluate a basic arithmetic expression without executing Python code."""
+    def eval_node(node):
+        if isinstance(node, ast.Expression):
+            return eval_node(node.body)
+        if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+            return node.value
+        if isinstance(node, ast.UnaryOp) and type(node.op) in _ALLOWED_OPERATORS:
+            return _ALLOWED_OPERATORS[type(node.op)](eval_node(node.operand))
+        if isinstance(node, ast.BinOp) and type(node.op) in _ALLOWED_OPERATORS:
+            return _ALLOWED_OPERATORS[type(node.op)](
+                eval_node(node.left), eval_node(node.right)
+            )
+        raise ValueError("表达式只能包含数字和基础四则运算")
+
+    return eval_node(ast.parse(expression, mode="eval"))
 
 class TestCsdn4Agent(unittest.TestCase):
     """测试csdn4_agent.md中的代码示例"""
     
     def setUp(self):
         """设置测试环境"""
-        # 初始化模型
-        self.llm = ChatOpenAI(
-            model="gpt-4o-mini",
-            api_key=os.getenv("OPENAI_API_KEY"),
-            base_url=os.getenv("OPENAI_BASE_URL")
-        )
+        self.llm = MockChatOpenAI()
     
     def test_basic_tool_decorator(self):
         """测试基础工具定义（@tool装饰器）"""
@@ -142,7 +161,7 @@ class TestCsdn4Agent(unittest.TestCase):
         def calculate(expression: str) -> str:
             """计算数学表达式"""
             try:
-                result = eval(expression)
+                result = safe_eval_arithmetic(expression)
                 return f"计算结果：{result}"
             except Exception as e:
                 return f"计算错误：{str(e)}"
@@ -163,11 +182,10 @@ class TestCsdn4Agent(unittest.TestCase):
         def safe_calculate(expression: str) -> str:
             """安全计算数学表达式"""
             try:
-                # 验证表达式安全性
-                if any(c in expression for c in ["__", "import", "exec", "eval"]):
-                    return "表达式不安全"
-                result = eval(expression)
+                result = safe_eval_arithmetic(expression)
                 return f"计算结果：{result}"
+            except ValueError:
+                return "表达式不安全"
             except Exception as e:
                 return f"计算错误：{str(e)}"
         
