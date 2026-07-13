@@ -1,9 +1,4 @@
 import unittest
-import os
-from dotenv import load_dotenv
-
-# 加载环境变量
-load_dotenv()
 
 # 导入所需的LangChain组件
 from langchain_core.runnables import Runnable, RunnablePassthrough, RunnableBranch, RunnableLambda
@@ -13,21 +8,16 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.messages import HumanMessage
 from langchain_core.tools import Tool
 from pydantic import BaseModel, Field
-from langchain_openai import ChatOpenAI
 from langgraph.graph import StateGraph
 from typing import TypedDict, List
+from mock_llm import MockChatOpenAI
 
 class TestLangChainV1Features(unittest.TestCase):
     """测试LangChain v1.0+核心功能"""
     
     def setUp(self):
         """设置测试环境"""
-        # 初始化模型，使用环境变量中的配置
-        self.llm = ChatOpenAI(
-            model="gpt-4o-mini",
-            api_key=os.getenv("OPENAI_API_KEY"),
-            base_url=os.getenv("OPENAI_BASE_URL")
-        )
+        self.llm = MockChatOpenAI()
     
     def test_runnable_interface(self):
         """测试Runnable接口"""
@@ -217,11 +207,12 @@ class TestLangChainV1Features(unittest.TestCase):
     
     def test_error_handling(self):
         """测试错误处理与重试"""
-        import random
-        
         # 1. 定义一个可能失败的函数
+        attempts = {"count": 0}
+
         def unreliable_function(inputs):
-            if random.random() < 0.3:
+            attempts["count"] += 1
+            if attempts["count"] == 1:
                 raise Exception("临时错误")
             return f"处理结果：{inputs}"
         
